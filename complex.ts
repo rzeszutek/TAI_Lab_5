@@ -36,3 +36,5 @@ e.toString();
 
 let f = e.mod();
 console.log('module: ' + f);
+
+//kod wynikowy dla es5 i es6 jest taki sam
