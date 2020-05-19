@@ -1,6 +1,7 @@
 'use strict';
 import business from '../business/business.container';
 import applicationException from '../service/applicationException';
+import auth from "../middleware/auth";
 
 const postEndpoint = (router) => {
   router.get('/api/posts', async (request, response, next) => {
@@ -23,6 +24,15 @@ const postEndpoint = (router) => {
   });
 
   router.post('/api/posts', async (request, response, next) => {
+    try {
+      let result = await business(request).getPostManager().createNewOrUpdate(request.body);
+      console.log(result);
+    } catch (error) {
+      applicationException.errorHandler(error, response);
+    }
+  });
+
+  router.post('/api/posts',auth, async (request, response, next) => {
     try {
       let result = await business(request).getPostManager().createNewOrUpdate(request.body);
       console.log(result);
