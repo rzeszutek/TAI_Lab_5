@@ -21,6 +21,11 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { TextFormatDirective } from './directives/text-format.directive';
 import { SelectizeComponent } from './components/selectize/selectize.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import {AuthService} from "./services/auth.service";
+import {AuthInterceptor} from "./services/auth.interceptor";
+import { LoginComponent } from './components/login/login.component';
+import {RouterModule} from "@angular/router";
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,8 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     TextFormatDirective,
     SelectizeComponent,
     AddPostComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,12 @@ import { AddPostComponent } from './components/add-post/add-post.component';
   ],
   providers: [
     DataService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
